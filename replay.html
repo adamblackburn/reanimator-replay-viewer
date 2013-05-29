@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Replay a Page</title>
+    </head>
+    <body>
+      <iframe id="target" class="target replay" src="{{ metadata.origin }}/pre"></iframe>
+      <div id="replay">Replay!</div>
+      <script src="/js/cycle.js"></script>
+      <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          var replay_key = '{{ replay_key }}';
+          var height = {{ metadata.height }};
+          var width = {{ metadata.width }};
+
+          $('#target').height(height);
+          $('#target').width(width);
+
+          function data_received(data, status, jqxhr) {
+            console.log(data);
+            var replay_data = { log : JSON.stringify(data),
+                                path : "{{ metadata.origin }}{{ metadata.pathname }}" };
+
+            $('#replay').on('click', function () {
+              console.log('Replaying.');
+              var target = window.targetFrame = $('iframe.target')[0].contentWindow;
+              target.postMessage(replay_data, "*");
+            });
+
+            $("#replay").fadeIn();
+          }
+
+          $.get("/replay/get/" + replay_key, undefined, data_received, 'json');
+
+          $("#replay").hide();
+        });
+      </script>
+    </body>
+</html>
