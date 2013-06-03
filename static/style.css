@@ -1,0 +1,29 @@
+@import url(http://reset5.googlecode.com/hg/reset.min.css);
+
+body {
+    background-color: #EFEFEF;
+    text-align: center;
+}
+
+iframe {
+  /* border: 1px solid black; */
+}
+
+.action {
+    font-size: .5em;
+    padding-top: 1em;
+}
+
+#overlay {
+    font-size:5em;
+
+    position:absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    z-index:2;
+    /*text-align: center;*/
+    opacity: 0.8;
+};
